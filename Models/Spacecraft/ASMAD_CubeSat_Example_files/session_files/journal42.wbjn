@@ -1,0 +1,125 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+system1 = GetSystem(Name="SYS")
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+template1 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+modelComponent1 = system1.GetComponent(Name="Model")
+resultsComponent1 = system1.GetComponent(Name="Results")
+componentTemplate1 = GetComponentTemplate(Name="EngDataCellTemplate")
+system2 = GetSystem(Name="SYS 6")
+system3 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    DataTransferFrom=[Set(FromComponent=resultsComponent1, TransferName=None, ToComponentTemplate=componentTemplate1)],
+    Position="Below",
+    RelativeTo=system2)
+geometryComponent2 = system3.GetComponent(Name="Geometry")
+modelComponent2 = system3.GetComponent(Name="Model")
+system4 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system3)
+geometryComponent3 = system4.GetComponent(Name="Geometry")
+modelComponent3 = system4.GetComponent(Name="Model")
+system5 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent3, modelComponent3],
+    Position="Right",
+    RelativeTo=system4)
+system3.DisplayText = "Harmonic Response - X"
+system4.DisplayText = "Harmonic Response - Y"
+system5.DisplayText = "Harmonic Response - Z"
+system5.Delete()
+solutionComponent1 = system1.GetComponent(Name="Solution")
+componentTemplate2 = GetComponentTemplate(Name="SimulationSetupCellTemplate_StructuralHarmonicANSYS")
+system6 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate2)],
+    Position="Below",
+    RelativeTo=system3)
+system3.Delete()
+system4.Delete()
+geometryComponent4 = system6.GetComponent(Name="Geometry")
+modelComponent4 = system6.GetComponent(Name="Model")
+system7 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent4, modelComponent4],
+    Position="Right",
+    RelativeTo=system6)
+system7.Delete()
+system8 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate2)],
+    Position="Below",
+    RelativeTo=system6)
+system8.Delete()
+setup1 = system6.GetContainer(ComponentName="Setup")
+setup1.Edit()
+Save(Overwrite=True)
+setup1.Edit()
+system9 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent4, modelComponent4],
+    Position="Right",
+    RelativeTo=system6)
+system10 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate2)],
+    Position="Below",
+    RelativeTo=system6)
+system11 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate2)],
+    Position="Below",
+    RelativeTo=system10)
+system9.Delete()
+system6.DisplayText = "Harmonic Response - X"
+system10.DisplayText = "Harmonic Response - Y"
+system11.DisplayText = "Harmonic Response - Z"
+Save(Overwrite=True)
+model1.Edit()
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+model1.Exit()
+model1.Edit()
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+Save(Overwrite=True)
+model1.Exit()
+template2 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system12 = template2.CreateSystem(
+    ComponentsToShare=[geometryComponent1, modelComponent1],
+    Position="Right",
+    RelativeTo=system1)
+geometryComponent5 = system12.GetComponent(Name="Geometry")
+modelComponent5 = system12.GetComponent(Name="Model")
+system13 = template2.CreateSystem(
+    ComponentsToShare=[geometryComponent5, modelComponent5],
+    Position="Right",
+    RelativeTo=system12)
+geometryComponent6 = system13.GetComponent(Name="Geometry")
+modelComponent6 = system13.GetComponent(Name="Model")
+system14 = template2.CreateSystem(
+    ComponentsToShare=[geometryComponent6, modelComponent6],
+    Position="Right",
+    RelativeTo=system13)
+modelComponent1.Refresh()
+setupComponent1 = system12.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+setup2 = system12.GetContainer(ComponentName="Setup")
+setup2.Edit()
+model1.Exit()
+system1.DisplayText = "Modal"
+Save(Overwrite=True)
+Save(Overwrite=True)

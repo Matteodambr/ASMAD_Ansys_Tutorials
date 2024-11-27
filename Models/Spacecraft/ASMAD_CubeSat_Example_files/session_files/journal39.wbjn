@@ -1,0 +1,5 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+CleanProject()
+Save(Overwrite=True)
